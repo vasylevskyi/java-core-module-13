@@ -76,5 +76,17 @@ public class HttpUtil {
         return users;
     }*/
 
+    public static List<Todos> sendGetTodos (URI uri) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .GET()
+                .build();
+        HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+        List<Todos> list = GSON.fromJson(response.body(), new TypeToken<List<Todos>>(){}.getType());
+        return list.stream()
+                .filter(s -> s.getCompleted().equals("false"))
+                .toList();
+    }
+
 
 }
