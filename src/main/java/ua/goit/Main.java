@@ -76,5 +76,6 @@ https://jsonplaceholder.typicode.com/users/1/todos.
         List<Todos> todos = HttpUtil.sendGetAll(URI.create(String.format("%s/%d/todos", BASE_URL, user.getId())));
         System.out.println(todos.toString());
 
+
     }
 }
