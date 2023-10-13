@@ -46,17 +46,27 @@ public class HttpUtil {
         return CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
 
     }
-    public static List<User> sendGetAll (URI uri) throws IOException, InterruptedException {
+    public static <E> List<E> sendGetAll (URI uri) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
                 .GET()
                 .build();
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-        List<User> users = GSON.fromJson(response.body(), new TypeToken<List<User>>(){}.getType());
-        return users;
+        List<E> list = GSON.fromJson(response.body(), new TypeToken<List<E>>(){}.getType());
+        return list;
     }
 
-    public static List<User> sendGet (URI uri) throws IOException, InterruptedException {
+    public static <E> List<E> sendGet (URI uri) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .GET()
+                .build();
+        HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+        List<E> list = GSON.fromJson(response.body(), new TypeToken<List<E>>(){}.getType());
+        return list;
+    }
+
+/*    public static List<User> sendGetPosts (URI uri) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
                 .GET()
@@ -64,6 +74,7 @@ public class HttpUtil {
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         List<User> users = GSON.fromJson(response.body(), new TypeToken<List<User>>(){}.getType());
         return users;
-    }
+    }*/
+
 
 }

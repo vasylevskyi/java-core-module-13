@@ -69,8 +69,12 @@ https://jsonplaceholder.typicode.com/users/1/todos.
         System.out.println("User got by id " + userById);*/
 
         //Task 1.6
-        final List<User> userByName = HttpUtil.sendGet(URI.create(BASE_URL + "?username=" + user.getUsername()));
-        System.out.println("User got by id " + userByName);
+/*        final List<User> userByName = HttpUtil.sendGet(URI.create(BASE_URL + "?username=" + user.getUsername()));
+        System.out.println("User got by id " + userByName);*/
+
+        //Task 3
+        List<Todos> todos = HttpUtil.sendGetAll(URI.create(String.format("%s/%d/todos", BASE_URL, user.getId())));
+        System.out.println(todos.toString());
 
     }
 }
