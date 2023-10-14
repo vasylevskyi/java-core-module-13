@@ -72,9 +72,23 @@ https://jsonplaceholder.typicode.com/users/1/todos.
 /*        final List<User> userByName = HttpUtil.sendGet(URI.create(BASE_URL + "?username=" + user.getUsername()));
         System.out.println("User got by id " + userByName);*/
 
+        //Task 2
+        final List<Post> postsByUserId = HttpUtil.sendGet(URI.create(String.format("%s/%d/posts", BASE_URL,
+                user.getId())));
+        Post maxPost = postsByUserId.stream()
+                    .max(Comparator.comparingInt(Post::getId))
+                    .get();
+        //final List<Comment> commentsByMaxPostId = HttpUtil.sendGet(URI.create(String.format("%s/%d/comments", BASE_URL,
+        //        maxPost.getId())));
+
+
+        System.out.println("Posts got by User id " + postsByUserId);
+        //System.out.println("Comments got by maxPost id " + commentsByMaxPostId);
+
+
         //Task 3
-        List<Todos> todos = HttpUtil.sendGetTodos(URI.create(String.format("%s/%d/todos", BASE_URL, user.getId())));
-        System.out.println(todos.toString());
+/*        List<Todos> todos = HttpUtil.sendGetTodos(URI.create(String.format("%s/%d/todos", BASE_URL, user.getId())));
+        System.out.println(todos.toString());*/
 
 
     }

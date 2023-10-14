@@ -66,15 +66,6 @@ public class HttpUtil {
         return list;
     }
 
-/*    public static List<User> sendGetPosts (URI uri) throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(uri)
-                .GET()
-                .build();
-        HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-        List<User> users = GSON.fromJson(response.body(), new TypeToken<List<User>>(){}.getType());
-        return users;
-    }*/
 
     public static List<Todos> sendGetTodos (URI uri) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
