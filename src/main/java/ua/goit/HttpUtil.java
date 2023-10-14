@@ -9,6 +9,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.math.*;
 
 
 public class HttpUtil {
@@ -64,6 +65,30 @@ public class HttpUtil {
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         List<E> list = GSON.fromJson(response.body(), new TypeToken<List<E>>(){}.getType());
         return list;
+    }
+
+    public static Post sendGetMaxPost (URI uri) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .GET()
+                .build();
+        HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+        List<Post> list = GSON.fromJson(response.body(), new TypeToken<List<Post>>(){}.getType());
+        return list.stream()
+                .max((a, b) -> {
+                    if (a.getId() > b.getId()) return 1;
+                    else if (a.getId() < b.getId()) return -1;
+                    else return 0;
+                    })
+                .get();
+    }
+    public static HttpResponse<String> sendGetComments (URI uri) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .GET()
+                .build();
+        return CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+
     }
 
 
